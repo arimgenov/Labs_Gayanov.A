@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <random>
+#include <fstream>
 
 
 void search_ln(int n, int arr[], int x) {
@@ -35,15 +36,18 @@ int main() {
         array[i] = i+1;
     }
 
+    std::ofstream out;
+    out.open("points.txt");
+
     for (int n=5000; n<=200000; n+=5000) {
         std::random_device random_device;
         std::mt19937 generator(random_device()); 
         std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
         int y = 0; // худший случай
-        int ky = 1000, kx = 10000; // ky - количество повторений худшего случая, kx среднего
+        int ky = 1000, kx = 1000; // ky - количество повторений худшего случая, kx среднего
         int ty_lin = 0, ty_ln = 0, tx_lin = 0, tx_ln=0;
 
-        for (int i = 0; i < kx; i ++) { // проверяем средний случай 10000 раз
+        for (int i = 0; i < kx; i ++) { // проверяем средний случай 100000 раз
         int x = distribution(generator); // Случайное число от 0 до n
 
         auto begin_lin = std::chrono::steady_clock::now();
@@ -59,7 +63,7 @@ int main() {
         tx_ln += time_span_ln.count();
         }
 
-        for (int i = 0; i < ky; i ++) { // проверяем худший случай 1000 раз
+        for (int i = 0; i < ky; i ++) { // проверяем худший случай 10000 раз
 
         auto begin_lin = std::chrono::steady_clock::now();
         search_lin(n, array, y);
@@ -80,8 +84,10 @@ int main() {
         tx_ln /= kx; // среднее время
 
         std::cout << tx_ln << " " << ty_ln << " " << tx_lin << " " << ty_lin << " " << n << "\n";
+        out << tx_ln << " " << ty_ln << " " << tx_lin << " " << ty_lin << " " << n << "\n";
 
     }
 
+    out.close();
     return 0;
 }
