@@ -38,15 +38,13 @@ int main() {
 
     std::ofstream out;
     out.open("points.txt");
-    std::cout << "tx_ln" << " " << "ty_ln" << " " << "tx_lin" << " " << "ty_lin" << " " << "n" << "\n";
-    out << "tx_ln" << " " << "ty_ln" << " " << "tx_lin" << " " << "ty_lin" << " " << "n" << "\n";
-
+    
     for (int n=5000; n<=200000; n+=5000) {
         std::random_device random_device;
         std::mt19937 generator(random_device()); 
         std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
         int y = 0; // худший случай
-        int ky = 1000, kx = 1000; // ky - количество повторений худшего случая, kx среднего
+        int ky = 1000, kx = 100000; // ky - количество повторений худшего случая, kx среднего
         int ty_lin = 0, ty_ln = 0, tx_lin = 0, tx_ln=0;
 
         for (int i = 0; i < kx; i ++) { // проверяем средний случай 100000 раз
