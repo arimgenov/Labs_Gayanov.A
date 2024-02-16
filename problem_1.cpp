@@ -38,6 +38,8 @@ int main() {
 
     std::ofstream out;
     out.open("points.txt");
+    std::cout << "tx_ln" << " " << "ty_ln" << " " << "tx_lin" << " " << "ty_lin" << " " << "n" << "\n";
+    out << "tx_ln" << " " << "ty_ln" << " " << "tx_lin" << " " << "ty_lin" << " " << "n" << "\n";
 
     for (int n=5000; n<=200000; n+=5000) {
         std::random_device random_device;
