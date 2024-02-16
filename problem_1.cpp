@@ -3,12 +3,12 @@
 #include <random>
 
 
-void search_ln(int n, int arr[], int x, int &y) {
+void search_ln(int n, int arr[], int x) {
     int l = 0, r = n-1, s;
     while (r >= l) {
         s = (l + r)/2;
         if (arr[s] == x) {
-            y = s;
+            // y = s;
             break;
         } else if (arr[s] > x) {
             r = s - 1;
@@ -18,10 +18,10 @@ void search_ln(int n, int arr[], int x, int &y) {
     }
 }
 
-void search_lin(int n, int arr[], int x, int &y) {
+void search_lin(int n, int arr[], int x) {
     for (int i = 0; i < n; i++) {
         if (arr[i] == x) {
-            y = i;
+            // y = i;
             break;
         }
     }
@@ -29,20 +29,27 @@ void search_lin(int n, int arr[], int x, int &y) {
 
 
 int main() {
-    int n, x, y; // n - число элементов массива, x - искомый элемент, y - номер элемента (-1 если его нет)
-    std::cin >> n >> x;
-    int array[n];
-    for (int i = 0; i < n; i++) { // вписываю в массив значения
-        std::cin >> array[i];
+    int tame_arr[1000];
+    int array[100000];
+
+    for (int i = 0; i < 100000; i++) {
+        array[i] = i;
     }
 
-    y = -1;
-    search_lin(n, array, x, y);
-    std::cout << y << "\n";
+    for (int n=100; n<=1000000; n+=100) {
+        std::random_device random_device;
+        std::mt19937 generator(random_device()); 
+        std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
 
-    y = -1;
-    search_ln(n, array, x, y);
-    std::cout << y << "\n";
+        int x = distribution(generator); // Случайное число от 0 до n
 
+    }
+
+
+
+    // auto begin = std::chrono::steady_clock::now(); // запуск таймера
+    // auto end = std::chrono::steady_clock::now(); // остановка таймера
+    // auto time_span = std::chrono::duration_cast<std::chrono::microseconds>(end - begin);
+    
     return 0;
 }
