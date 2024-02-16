@@ -29,27 +29,70 @@ void search_lin(int n, int arr[], int x) {
 
 
 int main() {
-    int tame_arr[1000];
-    int array[100000];
-
-    for (int i = 0; i < 100000; i++) {
-        array[i] = i;
+    int array[200000];
+    for (int i = 0; i < 200000; i++) {
+        array[i] = i+1;
     }
 
-    for (int n=100; n<=1000000; n+=100) {
+    for (int n=10000; n<=200000; n+=10000) {
         std::random_device random_device;
         std::mt19937 generator(random_device()); 
         std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
+        int y = 0; // худший случай
+        int ky = 1000, kx = 10000; // ky - количество повторений худшего случая, kx среднего
+        int ty_lin = 0, ty_ln = 0, tx_lin = 0, tx_ln=0;
 
-        int x = distribution(generator); // Случайное число от 0 до n
+        // for (int i = 0; i < kx; i ++) { // проверяем средний случай 10000 раз
+        // int x = distribution(generator); // Случайное число от 0 до n
+
+        // auto begin_lin = std::chrono::steady_clock::now();
+        // search_lin(n, array, x);
+        // auto end_lin = std::chrono::steady_clock::now();
+        // auto time_span_lin = std::chrono::duration_cast<std::chrono::microseconds>(end_lin - begin_lin);
+        // tx_lin += time_span_lin.count();
+
+        // auto begin_ln = std::chrono::steady_clock::now();
+        // search_ln(n, array, x);
+        // auto end_ln = std::chrono::steady_clock::now();
+        // auto time_span_ln = std::chrono::duration_cast<std::chrono::nanoseconds>(end_ln - begin_ln);
+        // tx_ln += time_span_ln.count();
+        // }
+
+        // for (int i = 0; i < ky; i ++) { // проверяем худший случай 1000 раз
+
+        // auto begin_lin = std::chrono::steady_clock::now();
+        // search_lin(n, array, y);
+        // auto end_lin = std::chrono::steady_clock::now();
+        // auto time_span_lin = std::chrono::duration_cast<std::chrono::microseconds>(end_lin - begin_lin);
+        // ty_lin += time_span_lin.count();
+
+        // auto begin_ln = std::chrono::steady_clock::now();
+        // search_ln(n, array, y);
+        // auto end_ln = std::chrono::steady_clock::now();
+        // auto time_span_ln = std::chrono::duration_cast<std::chrono::nanoseconds>(end_ln - begin_ln);
+        // ty_ln += time_span_ln.count();
+        // }
+
+        // ty_lin /= ky;
+        // ty_ln /= ky;
+        // tx_lin /= kx;
+        // tx_ln /= kx; // среднее время
+
+        // std::cout << tx_ln << " " << ty_ln << " " << tx_lin << " " << ty_lin << " " << n << "\n";
+
+        auto begin_x = std::chrono::steady_clock::now();
+        search_ln(n, array, 1);
+        auto end_x = std::chrono::steady_clock::now();
+        auto time_span_x = std::chrono::duration_cast<std::chrono::nanoseconds>(end_x - begin_x);
+
+        auto begin_y = std::chrono::steady_clock::now();
+        search_ln(n, array, 0);
+        auto end_y = std::chrono::steady_clock::now();
+        auto time_span_y = std::chrono::duration_cast<std::chrono::nanoseconds>(end_y - begin_y);
+
+        std::cout << time_span_x.count() << " " << time_span_y.count() << "\n";
 
     }
 
-
-
-    // auto begin = std::chrono::steady_clock::now(); // запуск таймера
-    // auto end = std::chrono::steady_clock::now(); // остановка таймера
-    // auto time_span = std::chrono::duration_cast<std::chrono::microseconds>(end - begin);
-    
     return 0;
 }
