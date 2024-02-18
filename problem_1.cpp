@@ -63,6 +63,9 @@ int main() {
 
         ty_lin /= ky;
 
+        std::cout << n << " " << ty_lin << "\n";
+        out << n << " " << ty_lin << "\n";
+
     }
 
     out.close();
