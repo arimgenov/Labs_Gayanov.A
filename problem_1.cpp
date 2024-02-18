@@ -7,6 +7,8 @@
 
 int main() {
 
+
+
     std::ofstream out;
     out.open("points.txt");
     
