@@ -50,7 +50,7 @@ int main() {
         int ky = 1000, kx = 10000; // ky - количество повторений худшего случая, kx среднего
         int ty_lin = 0, ty_ln = 0, tx_lin = 0, tx_ln=0;
 
-        for (int i = 0; i < kx; i ++) { // проверяем средний случай 100000 раз
+        for (int i = 0; i < kx; i ++) { // проверяем средний случай 10000 раз
         int x = distribution(generator); // Случайное число от 0 до n
 
         auto begin_lin = std::chrono::steady_clock::now();
@@ -66,7 +66,7 @@ int main() {
         tx_ln += time_span_ln.count();
         }
 
-        for (int i = 0; i < ky; i ++) { // проверяем худший случай 10000 раз
+        for (int i = 0; i < ky; i ++) { // проверяем худший случай 1000 раз
 
         auto begin_lin = std::chrono::steady_clock::now();
         search_lin(n, array, y);
