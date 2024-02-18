@@ -44,7 +44,12 @@ int main() {
     
 
     for (int n=k/50; n<=k; n+=k/50) {
-        int y = 0;
+        std::random_device random_device;
+        std::mt19937 generator(random_device()); 
+        std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
+        int y = 0; // худший случай
+        int ky = 1000, kx = 10000; // ky - количество повторений худшего случая, kx среднего
+        int ty_lin = 0, ty_kv = 0, tx_lin = 0, tx_kv=0;
 
         auto begin_lin = std::chrono::steady_clock::now();
         search_lin(n, array, y);
