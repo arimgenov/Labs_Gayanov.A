@@ -35,7 +35,10 @@ int main() {
     out.open("points.txt");
     
 
-
+    auto begin_lin = std::chrono::steady_clock::now();
+    // search_kv(n, array, x);
+    auto end_lin = std::chrono::steady_clock::now();
+    auto time_span_lin = std::chrono::duration_cast<std::chrono::microseconds>(end_lin - begin_lin);
 
 
 
