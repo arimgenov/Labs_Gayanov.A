@@ -6,15 +6,11 @@
 
 
 int main() {
-
-
+    int a[10000000000];
+    
 
     std::ofstream out;
     out.open("points.txt");
-    
-
-
-
     
 
     out.close();
