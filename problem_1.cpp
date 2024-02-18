@@ -20,8 +20,8 @@ void search_lin(int n, int arr[], int x) {
     int l = 0, r = n-1;
     while (r > l) {
         if (arr[l] + arr[r] == x) {
-            // y = i;
-            // z = j;
+            // y = l+1;
+            // z = r+1;
             break; 
         } else if (arr[l] + arr[r] > x) {
             r--;
@@ -34,7 +34,6 @@ void search_lin(int n, int arr[], int x) {
 
 int main() {
     int k = 500000;
-    int y = 0;
     int array[k];
     for (int i = 0; i < k; i++) {
         array[i] = i+1;
@@ -44,19 +43,17 @@ int main() {
     out.open("points.txt");
     
 
-    auto begin_lin = std::chrono::steady_clock::now();
-    search_lin(100000, array, 0);
-    auto end_lin = std::chrono::steady_clock::now();
-    auto time_span_lin = std::chrono::duration_cast<std::chrono::microseconds>(end_lin - begin_lin);
+    for (int n=k/50; n<=k; n+=k/50) {
+        int y = 0;
 
-    std::cout << time_span_lin.count() << "\n";
+        auto begin_lin = std::chrono::steady_clock::now();
+        search_lin(n, array, y);
+        auto end_lin = std::chrono::steady_clock::now();
+        auto time_span_lin = std::chrono::duration_cast<std::chrono::microseconds>(end_lin - begin_lin);
 
-    auto begin_kv = std::chrono::steady_clock::now();
-    search_kv(100000, array, 0);
-    auto end_kv = std::chrono::steady_clock::now();
-    auto time_span_kv = std::chrono::duration_cast<std::chrono::milliseconds>(end_kv - begin_kv);
+        std::cout << time_span_lin.count() << "\n";
 
-    std::cout << time_span_kv.count() << "\n";
+    }
 
 
     out.close();
