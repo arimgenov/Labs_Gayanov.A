@@ -41,15 +41,15 @@ int main() {
 
     std::ofstream out;
     out.open("points.txt");
-    std::cout << "n" << " " << "ty_lin" << "\n";
-    out << "n" << " " << "ty_lin" << "\n";
+    std::cout << "n" << " " << "ty_lin" << " " << "ty_kv" << " " << "tx_lin" << " " << "tx_kv" << "\n";
+    out << "n" << " " << "ty_lin" << " " << "ty_kv" << " " << "tx_lin" << " " << "tx_kv" << "\n";
 
     for (int n=k/50; n<=k; n+=k/50) {
         std::random_device random_device;
         std::mt19937 generator(random_device()); 
         std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
         int y = 0; // худший случай
-        int ky = 1, kx = 1000; // ky - количество повторений худшего случая, kx среднего
+        int ky = 1, kx = 0; // ky - количество повторений худшего случая, kx среднего
         int ty_lin = 0, ty_kv = 0, tx_lin = 0, tx_kv=0;
 
         for (int i=0; i<ky; i++) {
@@ -57,22 +57,38 @@ int main() {
         search_lin(n, array, y);
         auto end_lin = std::chrono::steady_clock::now();
         auto time_span_lin = std::chrono::duration_cast<std::chrono::microseconds>(end_lin - begin_lin);
-
         ty_lin += time_span_lin.count();
 
         auto begin_kv = std::chrono::steady_clock::now();
         search_kv(n, array, y);
         auto end_kv = std::chrono::steady_clock::now();
-        auto time_span_kv = std::chrono::duration_cast<std::chrono::microseconds>(end_kv - begin_kv);
-
+        auto time_span_kv = std::chrono::duration_cast<std::chrono::milliseconds>(end_kv - begin_kv);
         ty_kv += time_span_kv.count();
+        }
+
+        for (int i = 0; i < kx; i ++) { // проверяем средний случай 10000 раз
+        int x = distribution(generator); // Случайное число от 0 до n
+
+        auto begin_lin = std::chrono::steady_clock::now();
+        search_lin(n, array, x);
+        auto end_lin = std::chrono::steady_clock::now();
+        auto time_span_lin = std::chrono::duration_cast<std::chrono::microseconds>(end_lin - begin_lin);
+        tx_lin += time_span_lin.count();
+
+        auto begin_kv = std::chrono::steady_clock::now();
+        search_kv(n, array, x);
+        auto end_kv = std::chrono::steady_clock::now();
+        auto time_span_kv = std::chrono::duration_cast<std::chrono::milliseconds>(end_kv - begin_kv);
+        tx_kv += time_span_kv.count();
         }
 
         ty_lin /= ky;
         ty_kv /= ky;
+        tx_lin /= ky;
+        tx_kv /= ky;
 
-        std::cout << n << " " << ty_lin << " " << ty_kv << "\n";
-        out << n << " " << ty_lin << " " << ty_kv << "\n";
+        std::cout << n << " " << ty_lin << " " << ty_kv << " " << tx_lin << " " << tx_kv << "\n";
+        out << n << " " << ty_lin << " " << ty_kv << " " << tx_lin << " " << tx_kv << "\n";
 
     }
 
