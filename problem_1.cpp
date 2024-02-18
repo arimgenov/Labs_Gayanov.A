@@ -19,10 +19,16 @@ void search_kv(int n, int arr[], int x) {
 void search_lin(int n, int arr[], int x) {
     int l = 0, r = n-1;
     while (r > l) {
-        r--;
+        if (arr[l] + arr[r] == x) {
+            // y = i;
+            // z = j;
+            break; 
+        } else if (arr[l] + arr[r] > x) {
+            r--;
+        } else {
+            l++;
+        }
     }
-
-
 }
 
 
