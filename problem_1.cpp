@@ -4,17 +4,27 @@
 #include <fstream>
 
 
+void search_kv(int a[], int n, int k) {
+
+}
+
+
 
 int main() {
-    int array[300000];
-    for (int i = 0; i < 300000; i++) {
+    int k = 500000;
+    int y = 0;
+    int array[k];
+    for (int i = 0; i < k; i++) {
         array[i] = i+1;
     }
 
     std::ofstream out;
     out.open("points.txt");
     
-    std::cout << array[0] << " Uspex\n";
+
+
+
+
 
     out.close();
     return 0;
