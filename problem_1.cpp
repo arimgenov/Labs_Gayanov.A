@@ -41,14 +41,15 @@ int main() {
 
     std::ofstream out;
     out.open("points.txt");
-    
+    std::cout << "n" << " " << "tx_kv" << " " << "ty_kv" << " " << "tx_lin" << " " << "ty_lin" << "\n";
+    out << "n" << " " << "tx_kv" << " " << "ty_kv" << " " << "tx_lin" << " " << "ty_lin" << "\n";
 
     for (int n=k/50; n<=k; n+=k/50) {
         std::random_device random_device;
         std::mt19937 generator(random_device()); 
         std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
         int y = 0; // худший случай
-        int ky = 1000, kx = 10000; // ky - количество повторений худшего случая, kx среднего
+        int ky = 1000, kx = 1000; // ky - количество повторений худшего случая, kx среднего
         int ty_lin = 0, ty_kv = 0, tx_lin = 0, tx_kv=0;
 
         auto begin_lin = std::chrono::steady_clock::now();
@@ -59,7 +60,6 @@ int main() {
         std::cout << time_span_lin.count() << "\n";
 
     }
-
 
     out.close();
     return 0;
