@@ -58,10 +58,10 @@ int main() {
         auto end_lin = std::chrono::steady_clock::now();
         auto time_span_lin = std::chrono::duration_cast<std::chrono::microseconds>(end_lin - begin_lin);
 
-        std::cout << time_span_lin.count() << "\n";
-
+        ty_lin += time_span_lin.count();
         }
 
+        ty_lin /= ky;
 
     }
 
