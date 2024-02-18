@@ -31,20 +31,23 @@ void search_lin(int n, int arr[], int x) {
 
 
 int main() {
-    int array[200000];
-    for (int i = 0; i < 200000; i++) {
+    int k = 500000; // макс колво элементов
+    int array[k];
+    for (int i = 0; i<k; i++) {
         array[i] = i+1;
     }
 
     std::ofstream out;
     out.open("points.txt");
+    std::cout << "n" << " " << "tx_ln" << " " << "ty_ln" << " " << "tx_lin" << " " << "ty_lin" << "\n";
+    out << "n" << " " << "tx_ln" << " " << "ty_ln" << " " << "tx_lin" << " " << "ty_lin" << "\n";
     
-    for (int n=5000; n<=200000; n+=5000) {
+    for (int n=k/50; n<=k; n+=k/50) {
         std::random_device random_device;
         std::mt19937 generator(random_device()); 
         std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
         int y = 0; // худший случай
-        int ky = 100000, kx = 100000; // ky - количество повторений худшего случая, kx среднего
+        int ky = 1000, kx = 10000; // ky - количество повторений худшего случая, kx среднего
         int ty_lin = 0, ty_ln = 0, tx_lin = 0, tx_ln=0;
 
         for (int i = 0; i < kx; i ++) { // проверяем средний случай 100000 раз
@@ -83,8 +86,8 @@ int main() {
         tx_lin /= kx;
         tx_ln /= kx; // среднее время
 
-        std::cout << tx_ln << " " << ty_ln << " " << tx_lin << " " << ty_lin << " " << n << "\n";
-        out << tx_ln << " " << ty_ln << " " << tx_lin << " " << ty_lin << " " << n << "\n";
+        std::cout << n << " " << tx_ln << " " << ty_ln << " " << tx_lin << " " << ty_lin << "\n";
+        out << n << " " << tx_ln << " " << ty_ln << " " << tx_lin << " " << ty_lin << "\n";
 
     }
 
