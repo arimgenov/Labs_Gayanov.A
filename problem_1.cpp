@@ -38,7 +38,7 @@ int main() {
     }
 
     std::ofstream out;
-    out.open("points.txt");
+    out.open("points_1.txt");
     std::cout << "n" << " " << "tx_ln" << " " << "ty_ln" << " " << "tx_lin" << " " << "ty_lin" << "\n";
     out << "n" << " " << "tx_ln" << " " << "ty_ln" << " " << "tx_lin" << " " << "ty_lin" << "\n";
     
