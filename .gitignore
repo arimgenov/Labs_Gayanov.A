@@ -33,4 +33,4 @@
 
 # Local
 *.vscode/
-points_1.txt
+*points_1.txt

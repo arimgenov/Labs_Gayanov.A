@@ -1,4 +1,4 @@
-n tx_ln ty_ln tx_lin ty_lin
+n txln ty_ln tx_lin ty_lin
 10000 109 51 3 8
 20000 112 55 8 16
 30000 118 56 12 25
