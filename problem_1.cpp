@@ -55,6 +55,8 @@ int main() {
         int ky_lin = 1, ky_kv = 0; // ky_per - количество повторений худшего случая
         int ty_lin = 0, ty_kv = 0;
 
+
+
         for (int i=0; i<ky_lin; i++) {
         auto begin_lin = std::chrono::steady_clock::now();
         search_lin(n, array, y);
@@ -70,6 +72,7 @@ int main() {
         auto time_span_kv = std::chrono::duration_cast<std::chrono::milliseconds>(end_kv - begin_kv);
         ty_kv += time_span_kv.count();
         }
+
 
 
         ty_lin /= ky_lin; // вывод в файл
