@@ -33,4 +33,6 @@
 
 # Local
 *.vscode/
+points_ty_kv.txt
+points_ty_lin.txt
 points_1.txt
