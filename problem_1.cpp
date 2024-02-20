@@ -31,7 +31,7 @@ void search_lin(int n, int arr[], int x) {
 
 
 int main() {
-    int k = 500000; // макс колво элементов
+    const int k = 500000; // макс колво элементов
     int array[k];
     for (int i = 0; i<k; i++) {
         array[i] = i+1;
@@ -46,12 +46,14 @@ int main() {
         std::random_device random_device;
         std::mt19937 generator(random_device()); 
         std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
-        int y = 0; // худший случай
-        int ky = 1000, kx = 10000; // ky - количество повторений худшего случая, kx среднего
+        const int y = 0; // худший случай
+        const int ky = 1000, kx = 1000; // ky - количество повторений худшего случая, kx среднего
         int ty_lin = 0, ty_ln = 0, tx_lin = 0, tx_ln=0;
 
         for (int i = 0; i < kx; i ++) { // проверяем средний случай 10000 раз
         int x = distribution(generator); // Случайное число от 0 до n
+
+
 
         auto begin_lin = std::chrono::steady_clock::now();
         search_lin(n, array, x);
@@ -80,6 +82,8 @@ int main() {
         auto time_span_ln = std::chrono::duration_cast<std::chrono::nanoseconds>(end_ln - begin_ln);
         ty_ln += time_span_ln.count();
         }
+
+
 
         ty_lin /= ky;
         ty_ln /= ky;
