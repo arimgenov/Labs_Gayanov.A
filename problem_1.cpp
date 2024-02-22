@@ -4,7 +4,7 @@
 #include <fstream>
 
 
-void search_ln(int n, int arr[], int x) {
+int search_ln(int n, int arr[], int x) {
     int l = 0, r = n-1, s;
     while (r > l and r != l+1) {
         s = (l + r)/2;
@@ -18,15 +18,17 @@ void search_ln(int n, int arr[], int x) {
         }
         // std::cout << l << " " << r << "\n";
     }
+    return 0;
 }
 
-void search_lin(int n, int arr[], int x) {
+int search_lin(int n, int arr[], int x) {
     for (int i = 0; i < n; i++) {
         if (arr[i] == x) {
             // y = i;
             break;
         }
     }
+    return 0;
 }
 
 
