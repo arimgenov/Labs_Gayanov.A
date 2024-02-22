@@ -4,7 +4,7 @@
 #include <fstream>
 
 
-void search_kv(int n, int arr[], int x) {
+int search_kv(int n, int arr[], int x) {
     for (int i=0; i<n; i++) {
         for (int j=0; j<n; j++) {
             if (arr[i] + arr[j] == x) {
@@ -14,9 +14,10 @@ void search_kv(int n, int arr[], int x) {
             }
         }
     }
+    return 0;
 }
 
-void search_lin(int n, int arr[], int x) {
+int search_lin(int n, int arr[], int x) {
     int l = 0, r = n-1;
     while (r > l) {
         if (arr[l] + arr[r] == x) {
@@ -29,6 +30,7 @@ void search_lin(int n, int arr[], int x) {
             l++;
         }
     }
+    return 0;
 }
 
 
