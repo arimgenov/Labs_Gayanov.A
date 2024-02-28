@@ -1,1 +1,1 @@
-readme file
+graphs необходимые граффики в екселе, код находится в problem_1.cpp
