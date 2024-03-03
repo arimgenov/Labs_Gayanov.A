@@ -1,35 +1,13 @@
 #include <iostream>
 #include <random>
+#include <algorithm>
 
+const int n = 20;
 
 void swap(int arr[], int i, int j) { // меняет местами
     int temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp; 
-}
-
-void synthesis (int n, int a_1[], int m, int a_2[]) { // обьединет упорядоченные массивы
-
-}
-
-void fastsort(int n, int arr[]) {
-    int mid = n/2, l = 0, r = n-1;
-    while (l < mid and r > mid) {
-        if (arr[l] > arr[mid]) {
-            if (arr[r] < arr[mid]) {
-                swap(arr, l, r);
-                l++;
-            } else {
-                r--;
-            }
-        } else {
-            l++;
-        }
-    }
-}
-
-void merge(int n, int arr[]) {
-
 }
 
 void bubble(int n, int arr[]) {
@@ -67,31 +45,77 @@ void insertion(int n, int arr[]) {
     }
 }
 
+void merge(int arr[], int l, int r) {
+    if (l == r) return;
+    int mid = (l+r)/2;
+    merge(arr, l, mid);
+    merge(arr, mid+1, r);
+
+    int brr[n], k=l, i=l, j=mid+1;
+
+    while (k <= r) {
+        if (i > mid) {
+            brr[k++] = arr[j++];
+        } else if (j > r) {
+            brr[k++] = arr[i++];
+        } else {
+            if (arr[i] <= arr[j]) {
+                brr[k++] = arr[i++];
+            } else {
+                brr[k++] = arr[j++];
+            }
+        }
+    }
+    
+    for(int i=l; i<=r; i++) {
+        arr[i] = brr[i];
+    }
+}
+
+void quicksort(int arr[], int l, int r){
+  if (l < r) {
+    int x = arr[(l+r)/2], i = l, j = r;
+    while(i <= j) {
+      while(arr[i] < x) {
+        i++;
+      }
+      while(arr[j] > x) {
+        j--;
+      }
+      if(i<=j) {
+        swap(arr, i++, j--);
+      }
+    }
+    quicksort(arr, l, j);
+    quicksort(arr, i, r);
+  }
+}
+
 
 int main() {
-    int n=40;
     std::random_device random_device;
     std::mt19937 generator(random_device()); 
-    std::uniform_int_distribution<> distribution(0, n); // Генератор случайных чисел
+    std::uniform_int_distribution<> distribution(1, n); // Генератор случайных чисел
     int arr[n];
     for (int i=0; i<n; i++) {
         arr[i] = distribution(generator); // случайный массив
     }
 
     for (int i=0; i<n; i++) {
-    std::cout << arr[i] << " "; // вывод отсортированного массива
+    std::cout << arr[i] << " "; // вывод массива
     }
     std::cout << "\n";
 
     // bubble(n, arr);
     // selection(n, arr);
     // insertion(n, arr);
-    fastsort(n, arr);
-    // merge(n, arr);
+    quicksort(arr, 0, n-1); // выбери своего бойца
+    // merge(arr, 0, n-1);
 
     for (int i=0; i<n; i++) {
     std::cout << arr[i] << " "; // вывод отсортированного массива
     }
+    std::cout << "\n";
 
     return 0;
 }
