@@ -76,20 +76,15 @@ void quicksort(int arr[], int l, int r){
   if (l < r) {
     int x = arr[(l+r)/2], i = l, j = r;
     while(i <= j) {
-      while(arr[i] < x) {
-        i++;
-      }
-      while(arr[j] > x) {
-        j--;
-      }
-      if(i<=j) {
-        swap(arr, i++, j--);
-      }
-    }
+      while(arr[i] < x) i++;
+      while(arr[j] > x) j--;
+      if(i<=j) swap(arr, i++, j--); }
     quicksort(arr, l, j);
     quicksort(arr, i, r);
   }
 }
+
+
 
 
 int main() {
