@@ -13,9 +13,7 @@ void swap(int arr[], int i, int j) { // меняет местами
 void bubble(int n, int arr[]) {
     for (int i=0; i<n; i++) {
         for (int j=0; j<n-1-i; j++) {
-            if (arr[j] > arr[j+1]) {
-                swap(arr, j, j+1);
-            }
+            if (arr[j] > arr[j+1]) swap(arr, j, j+1);
         }
     }
 }
@@ -23,24 +21,16 @@ void bubble(int n, int arr[]) {
 void selection(int n, int arr[]) {
     for (int i=0; i<n; i++) {
         int min = i;
-        for (int j=i+1; j<n; j++) {
-            if (arr[j] < arr[min]) {
-                min = j;
-            }
-        }
+        for (int j=i+1; j<n; j++) if (arr[j] < arr[min]) min = j;
         swap(arr, i, min);
     }
 }
 
 void insertion(int n, int arr[]) {
-    std::cout << std::endl;
     for (int i=1; i<n; i++) {
         for (int j=i-1; j>=0; j--) {
-            if (arr[j] > arr[j+1]) {
-                swap(arr, j, j+1);
-            } else {
-                break;
-            }
+            if (arr[j] > arr[j+1]) swap(arr, j, j+1);
+            else break;
         }   
     }
 }
@@ -54,22 +44,15 @@ void merge(int arr[], int l, int r) {
     int brr[n], k=l, i=l, j=mid+1;
 
     while (k <= r) {
-        if (i > mid) {
-            brr[k++] = arr[j++];
-        } else if (j > r) {
-            brr[k++] = arr[i++];
-        } else {
-            if (arr[i] <= arr[j]) {
-                brr[k++] = arr[i++];
-            } else {
-                brr[k++] = arr[j++];
-            }
+        if (i > mid) brr[k++] = arr[j++];
+        else if (j > r) brr[k++] = arr[i++];
+        else {
+            if (arr[i] <= arr[j]) brr[k++] = arr[i++];
+            else brr[k++] = arr[j++];
         }
     }
     
-    for(int i=l; i<=r; i++) {
-        arr[i] = brr[i];
-    }
+    for(int i=l; i<=r; i++) arr[i] = brr[i];
 }
 
 void quicksort(int arr[], int l, int r){
@@ -104,8 +87,8 @@ int main() {
     // bubble(n, arr);
     // selection(n, arr);
     // insertion(n, arr);
-    quicksort(arr, 0, n-1); // выбери своего бойца
-    // merge(arr, 0, n-1);
+    // quicksort(arr, 0, n-1); // выбери своего бойца
+    merge(arr, 0, n-1);
 
     for (int i=0; i<n; i++) {
     std::cout << arr[i] << " "; // вывод отсортированного массива
