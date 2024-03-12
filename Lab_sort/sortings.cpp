@@ -2,7 +2,7 @@
 #include <random>
 #include <algorithm>
 
-const int n = 20;
+const int n = 40;
 
 void swap(int arr[], int i, int j) { // меняет местами
     int temp = arr[i];
@@ -55,19 +55,52 @@ void merge(int arr[], int l, int r) {
     for(int i=l; i<=r; i++) arr[i] = brr[i];
 }
 
-void quicksort(int arr[], int l, int r){
+void quicksort(int arr[], int l, int r) {
   if (l < r) {
     int x = arr[(l+r)/2], i = l, j = r;
     while(i <= j) {
       while(arr[i] < x) i++;
       while(arr[j] > x) j--;
-      if(i<=j) swap(arr, i++, j--); }
+      if(i<=j) swap(arr, i++, j--);}
     quicksort(arr, l, j);
     quicksort(arr, i, r);
   }
 }
 
+void see(int n, int arr[]) { // выводит массив в виде кучи
+    int s=1, k=2;
+    while (s-1<n){
+        if (s==k) {
+        k *= 2;
+        std::cout << std::endl;
+        }
+        std::cout << arr[s-1] << " ";
+        s++;
+    }
+    std::cout << "\n";
+    std::cout << "\n";
+}
 
+void heapswap(int arr[], int h, int j) { // выберает упорядочивание для родителя и его детей
+    int l = 2*h+2, r = 2*h+1;
+    if (l<j and arr[l] > arr[h] and arr[l] >= arr[r]) {
+        swap(arr, l, h);
+        heapswap(arr, l, j);
+    } else if (r<j and arr[r] > arr[h]) {
+        swap(arr, r, h);
+        heapswap(arr, r, j);
+    }
+}
+
+void heapsort(int n, int arr[]) {
+    for(int i=n/2; i>=0; i--) { // создаем максимальную кучу
+        heapswap(arr, i, n);
+    }
+    for(int j=n-1; j>0; j--){
+        swap(arr, 0, j);
+        heapswap(arr, 0, j);
+    }
+}
 
 
 int main() {
@@ -75,24 +108,19 @@ int main() {
     std::mt19937 generator(random_device()); 
     std::uniform_int_distribution<> distribution(1, n); // Генератор случайных чисел
     int arr[n];
-    for (int i=0; i<n; i++) {
-        arr[i] = distribution(generator); // случайный массив
-    }
+    for (int i=0; i<n; i++) arr[i] = distribution(generator); // случайный массив
 
-    for (int i=0; i<n; i++) {
-    std::cout << arr[i] << " "; // вывод массива
-    }
+    for (int i=0; i<n; i++) std::cout << arr[i] << " "; // вывод массива
     std::cout << "\n";
 
     // bubble(n, arr);
     // selection(n, arr);
     // insertion(n, arr);
     // quicksort(arr, 0, n-1); // выбери своего бойца
-    merge(arr, 0, n-1);
+    // merge(arr, 0, n-1);
+    heapsort(n, arr);
 
-    for (int i=0; i<n; i++) {
-    std::cout << arr[i] << " "; // вывод отсортированного массива
-    }
+    for (int i=0; i<n; i++) std::cout << arr[i] << " "; // вывод отсортированного массива
     std::cout << "\n";
 
     return 0;
