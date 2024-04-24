@@ -2,15 +2,15 @@
 #include <random>
 #include <algorithm>
 
-const int n = 40;
+const int n = 39;
 
-void swap(int arr[], int i, int j) { // меняет местами
+void swap(int* arr, int i, int j) { // меняет местами
     int temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp; 
 }
 
-void bubble(int n, int arr[]) {
+void bubble(int n, int* arr) {
     for (int i=0; i<n; i++) {
         for (int j=0; j<n-1-i; j++) {
             if (arr[j] > arr[j+1]) swap(arr, j, j+1);
@@ -18,7 +18,7 @@ void bubble(int n, int arr[]) {
     }
 }
 
-void selection(int n, int arr[]) {
+void selection(int n, int* arr) {
     for (int i=0; i<n; i++) {
         int min = i;
         for (int j=i+1; j<n; j++) if (arr[j] < arr[min]) min = j;
@@ -26,7 +26,7 @@ void selection(int n, int arr[]) {
     }
 }
 
-void insertion(int n, int arr[]) {
+void insertion(int n, int* arr) {
     for (int i=1; i<n; i++) {
         for (int j=i-1; j>=0; j--) {
             if (arr[j] > arr[j+1]) swap(arr, j, j+1);
@@ -35,7 +35,7 @@ void insertion(int n, int arr[]) {
     }
 }
 
-void merge(int arr[], int l, int r) {
+void merge(int* arr, int l, int r) {
     if (l == r) return;
     int mid = (l+r)/2;
     merge(arr, l, mid);
@@ -55,7 +55,7 @@ void merge(int arr[], int l, int r) {
     for(int i=l; i<=r; i++) arr[i] = brr[i];
 }
 
-void quicksort(int arr[], int l, int r) {
+void quicksort(int* arr, int l, int r) {
   if (l < r) {
     int x = arr[(l+r)/2], i = l, j = r;
     while(i <= j) {
@@ -67,21 +67,7 @@ void quicksort(int arr[], int l, int r) {
   }
 }
 
-void see(int n, int arr[]) { // выводит массив в виде кучи
-    int s=1, k=2;
-    while (s-1<n){
-        if (s==k) {
-        k *= 2;
-        std::cout << std::endl;
-        }
-        std::cout << arr[s-1] << " ";
-        s++;
-    }
-    std::cout << "\n";
-    std::cout << "\n";
-}
-
-void heapswap(int arr[], int h, int j) { // выберает упорядочивание для родителя и его детей
+void heapswap(int* arr, int h, int j) { // выберает упорядочивание для родителя и его детей
     int l = 2*h+2, r = 2*h+1;
     if (l<j and arr[l] > arr[h] and arr[l] >= arr[r]) {
         swap(arr, l, h);
@@ -92,7 +78,7 @@ void heapswap(int arr[], int h, int j) { // выберает упорядочи�
     }
 }
 
-void heapsort(int n, int arr[]) {
+void heapsort(int n, int* arr) {
     for(int i=n/2; i>=0; i--) { // создаем максимальную кучу
         heapswap(arr, i, n);
     }
@@ -107,7 +93,7 @@ int main() {
     std::random_device random_device;
     std::mt19937 generator(random_device()); 
     std::uniform_int_distribution<> distribution(1, n); // Генератор случайных чисел
-    int arr[n];
+    int* arr = new int[n];
     for (int i=0; i<n; i++) arr[i] = distribution(generator); // случайный массив
 
     for (int i=0; i<n; i++) std::cout << arr[i] << " "; // вывод массива
@@ -118,7 +104,7 @@ int main() {
     // insertion(n, arr);
     // quicksort(arr, 0, n-1); // выбери своего бойца
     // merge(arr, 0, n-1);
-    heapsort(n, arr);
+    // heapsort(n, arr);
 
     for (int i=0; i<n; i++) std::cout << arr[i] << " "; // вывод отсортированного массива
     std::cout << "\n";
